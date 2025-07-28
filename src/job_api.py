@@ -12,7 +12,7 @@ headers = {
     "x-rapidapi-key": API_KEY
 }
 
-def search_jobs(query="Engineer", location="Israel", num_jobs=50):
+def search_jobs(query="Data", location="Israel", num_jobs=50):
     """
     Fetch multiple pages of jobs from JSearch API until we reach num_jobs or run out of results.
     """
@@ -23,7 +23,7 @@ def search_jobs(query="Engineer", location="Israel", num_jobs=50):
     while len(all_jobs) < num_jobs:
         params = {
             "query": query,
-            "country": "il",  # use Israel country code
+            #"country": "il",  # use Israel country code
             "page": page,
             "num_pages": 1  # only one page at a time
         }
@@ -34,8 +34,8 @@ def search_jobs(query="Engineer", location="Israel", num_jobs=50):
             break
 
         data = response.json()
+        print("RAW API DATA:", data)
         jobs = data.get("data", [])
-
         if not jobs:
             break  # No more jobs available
 
