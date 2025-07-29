@@ -8,15 +8,19 @@ def filter_by_keywords(jobs, keywords):
         job for job in jobs
         if any(kw.lower() in job['title'].lower() for kw in keywords)
     ]
-
+    
 def filter_by_location(jobs, allowed_locations):
     """
     Filter jobs by location (e.g., Remote, Hybrid, On-site in Israel).
+    Uses case-insensitive and partial matching.
     """
-    return [
-        job for job in jobs
-        if job['location'] and any(loc.lower() in job['location'].lower() for loc in allowed_locations)
-    ]
+    allowed = [loc.lower().strip() for loc in allowed_locations]
+    filtered = []
+    for job in jobs:
+        job_loc = (job.get('location') or '').lower().strip()
+        if any(loc in job_loc for loc in allowed):
+            filtered.append(job)
+    return filtered
 
 def filter_by_min_salary(jobs, min_salary):
     """

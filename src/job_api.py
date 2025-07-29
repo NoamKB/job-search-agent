@@ -34,7 +34,7 @@ def search_jobs(query="Data", location="Israel", num_jobs=50):
             break
 
         data = response.json()
-        print("RAW API DATA:", data)
+        #print("RAW API DATA:", data)
         jobs = data.get("data", [])
         if not jobs:
             break  # No more jobs available
